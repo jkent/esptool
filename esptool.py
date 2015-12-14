@@ -932,6 +932,10 @@ def erase_flash(esp, args):
 
 def run(esp, args):
     esp.run()
+    if args.terminal:
+        from terminal import terminal
+        print 'Press ^C twice to exit'
+        terminal(esp._port)
 
 
 def flash_id(esp, args):
@@ -1058,9 +1062,10 @@ def main():
     parser_write_flash.add_argument('--no-progress', '-p', help='Suppress progress output', action="store_true")
     parser_write_flash.add_argument('--verify', help='Verify just-written data (only necessary if very cautious, data is already CRCed', action='store_true')
 
-    subparsers.add_parser(
+    parser_run = subparsers.add_parser(
         'run',
         help='Run application code in flash')
+    parser_run.add_argument('--terminal', '-t', help = 'Start serial terminal', action = 'store_true', default = False)
 
     parser_image_info = subparsers.add_parser(
         'image_info',

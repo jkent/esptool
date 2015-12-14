@@ -88,5 +88,6 @@ setup(
     ],
     scripts=[
         'esptool.py',
+        'terminal.py'
     ],
 )
